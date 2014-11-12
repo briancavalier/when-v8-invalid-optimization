@@ -1,0 +1,25 @@
+{
+  "name": "when-issue-345-invalid-v8-optimization",
+  "version": "1.0.0",
+  "description": "Shows v8 generates invalid optimized code under seemingly random conditions",
+  "main": "test.js",
+  "dependencies": {
+    "glob-expand": "^0.0.2",
+    "esprima": "^1.2.2",
+    "when": "^3.6.0",
+    "lodash": "^2.4.1"
+  },
+  "devDependencies": {
+    "coffee-script": "^1.8.0"
+  },
+  "scripts": {
+    "test": "coffee -c test.coffee && node test.js"
+  },
+  "keywords": [
+    "when",
+    "v8",
+    "bug"
+  ],
+  "author": "brian@hovercraftstudios.com",
+  "license": "MIT"
+}
