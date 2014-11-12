@@ -14,11 +14,13 @@ npm test
 
 ### Expected result
 
-Program completes without error
+Program completes without error.
 
 ### Actual result
 
-Program fails at a seemingly random, but reproducible iteration:
+Program fails at a seemingly random, but reproducible iteration.
+
+The stack trace below points to [this line in the `_beget` function](https://github.com/cujojs/when/blob/3.6.0/lib/makePromise.js#L166).
 
 ```
 <lots more output above>
@@ -49,10 +51,21 @@ Potentially unhandled rejection [1] TypeError: object is not a function
 <end of output, program terminates>
 ```
 
+### Potential workaround
+
+Note that in at least some cases (not sure about all yet), adding an empty try/finally as first line of the `_beget` function avoids the failure, presumably because that either prevents optimization, or changes the optimization in a way that avoids generating the erroneous compiled code.
+
+```js
+Promise.prototype._beget = function() {
+	try {} finally {};
+	...
+}
+```
+
 ### References
 
 For more information see the following github issues:
 
 * [Original issue report](https://github.com/cujojs/when/issues/345): long, best to read from bottom up or [start here](https://github.com/cujojs/when/issues/345#issuecomment-51775158)
-* [Followup with test case](https://github.com/cujojs/when/issues/403) by @anodynos
+* [Followup with test case](https://github.com/cujojs/when/issues/403) by [@anodynos](https://github.com/anodynos)
 
